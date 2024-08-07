@@ -28,6 +28,14 @@ spec:
                       values:
                         - rs0.main
                 topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: minikube.k8s.io/name
+                    operator: In
+                    values:
+                      - minikube 
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
@@ -53,7 +61,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: gp2
+        storageClassName: standard
         resources:
           requests:
             storage: 0.5Gi
